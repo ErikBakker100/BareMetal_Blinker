@@ -1,0 +1,13 @@
+Erik Bakker, 7-2025
+
+For the 32bit version of Blinker running on a Raspberry Pi 4b, the following files need to placed in the root of the SD Card:
+
+bcm2711-rpi-4-b.dtb
+bootcode.bin
+config.txt (JTAG is enabled, Bluetooth disabled)
+fixup4.dat
+kernel.img (this is the Blinker program itself)
+start4.elf
+
+Please note that the ACT_LED can not be controlled via the program on a rpi4b, therefore GPIO 21 is being used. But a LED should be connected (via a 330ohm resistor to ground) to see the blinking.
+All mentioned files can be found on the SD_card subdirectory. They can be different in each project directory, so only use the ones in the SD_card directory of this project.
