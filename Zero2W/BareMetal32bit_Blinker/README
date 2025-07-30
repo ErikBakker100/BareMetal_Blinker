@@ -1,0 +1,12 @@
+Erik Bakker, 7-2025
+
+For the 32bit version of Blinker running on a Raspberry Pi 2w, the following files need to placed in the root of the SD Card:
+
+bcm2710-rpi-zero-2.dtb
+bootcode.bin
+config.txt (JTAG is enabled, Bluetooth disabled)
+kernel.img (this is the Blinker program itself)
+start.elf
+
+The ACT_LED on the Raspberry will blink after running the program.
+All mentioned files can be found on the SD_card subdirectory. They can be different in each project directory, so only use the ones in the SD_card directory of this project.

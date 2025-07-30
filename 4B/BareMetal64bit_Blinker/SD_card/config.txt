@@ -1,0 +1,11 @@
+# must be placed on SD Card in the root directory
+# Run in 64-bit mode
+arm_64bit=1
+kernel=kernel8.img
+# Enable jtag pins (i.e. GPIO22-GPIO27)
+gpio=22-27=a4
+dtoverlay=disable-bt
+[pi4]
+# Run as fast as firmware / board allows
+arm_boost=1
+enable_jtag_gpio=1

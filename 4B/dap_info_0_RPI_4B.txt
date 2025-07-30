@@ -1,0 +1,124 @@
+Open On-Chip Debugger
+> dap info 0
+AP # 0x0
+                AP ID register 0x24770002
+                Type is MEM-AP APB2 or APB3
+MEM-AP BASE 0x80020003
+                Valid ROM table present
+                Component base address 0x80020000
+                Peripheral ID 0x01000bfa97
+                Designer is 0x0bf, Broadcom
+                Part is 0xa97, Unrecognized
+                Component class is 0x1, ROM table
+                MEMTYPE system memory not present: dedicated debug bus
+        ROMTABLE[0x0] = 0x003e0003
+                Component base address 0x80400000
+                Peripheral ID 0x04001bb4a4
+                Designer is 0x23b, ARM Ltd
+                Part is 0x4a4, Cortex-A72 ROM (ROM Table)
+                Component class is 0x1, ROM table
+                MEMTYPE system memory not present: dedicated debug bus
+        [L01] ROMTABLE[0x0] = 0x00010003
+                Component base address 0x80410000
+                Peripheral ID 0x04001bbd08
+                Designer is 0x23b, ARM Ltd
+                Part is 0xd08, Cortex-A72 Debug (Debug Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x15, Debug Logic, Processor
+                Dev Arch is 0x47706a15, ARM Ltd "Processor debug architectur8.0-A)" rev.0
+        [L01] ROMTABLE[0x4] = 0x00020003
+                Component base address 0x80420000
+                Peripheral ID 0x04004bb906
+                Designer is 0x23b, ARM Ltd
+                Part is 0x906, CoreSight CTI (Cross Trigger)
+                Component class is 0x9, CoreSight component
+                Type is 0x14, Debug Control, Trigger Matrix
+        [L01] ROMTABLE[0x8] = 0x00030003
+                Component base address 0x80430000
+                Peripheral ID 0x04001bb9d8
+                Designer is 0x23b, ARM Ltd
+                Part is 0x9d8, Cortex-A72 PMU (Performance Monitor Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x16, Performance Monitor, Processor
+                Dev Arch is 0x47702a16, ARM Ltd "Processor Performance MonitPMU) architecture" rev.0
+        [L01] ROMTABLE[0xc] = 0x00040002
+                Component not present
+        [L01] ROMTABLE[0x10] = 0x00110003
+                Component base address 0x80510000
+                Peripheral ID 0x04001bbd08
+                Designer is 0x23b, ARM Ltd
+                Part is 0xd08, Cortex-A72 Debug (Debug Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x15, Debug Logic, Processor
+                Dev Arch is 0x47706a15, ARM Ltd "Processor debug architectur8.0-A)" rev.0
+        [L01] ROMTABLE[0x14] = 0x00120003
+                Component base address 0x80520000
+                Peripheral ID 0x04004bb906
+                Designer is 0x23b, ARM Ltd
+                Part is 0x906, CoreSight CTI (Cross Trigger)
+                Component class is 0x9, CoreSight component
+                Type is 0x14, Debug Control, Trigger Matrix
+        [L01] ROMTABLE[0x18] = 0x00130003
+                Component base address 0x80530000
+                Peripheral ID 0x04001bb9d8
+                Designer is 0x23b, ARM Ltd
+                Part is 0x9d8, Cortex-A72 PMU (Performance Monitor Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x16, Performance Monitor, Processor
+                Dev Arch is 0x47702a16, ARM Ltd "Processor Performance MonitPMU) architecture" rev.0
+        [L01] ROMTABLE[0x1c] = 0x00140002
+                Component not present
+        [L01] ROMTABLE[0x20] = 0x00210003
+                Component base address 0x80610000
+                Peripheral ID 0x04001bbd08
+                Designer is 0x23b, ARM Ltd
+                Part is 0xd08, Cortex-A72 Debug (Debug Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x15, Debug Logic, Processor
+                Dev Arch is 0x47706a15, ARM Ltd "Processor debug architectur8.0-A)" rev.0
+        [L01] ROMTABLE[0x24] = 0x00220003
+                Component base address 0x80620000
+                Peripheral ID 0x04004bb906
+                Designer is 0x23b, ARM Ltd
+                Part is 0x906, CoreSight CTI (Cross Trigger)
+                Component class is 0x9, CoreSight component
+                Type is 0x14, Debug Control, Trigger Matrix
+        [L01] ROMTABLE[0x28] = 0x00230003
+                Component base address 0x80630000
+                Peripheral ID 0x04001bb9d8
+                Designer is 0x23b, ARM Ltd
+                Part is 0x9d8, Cortex-A72 PMU (Performance Monitor Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x16, Performance Monitor, Processor
+                Dev Arch is 0x47702a16, ARM Ltd "Processor Performance MonitPMU) architecture" rev.0
+        [L01] ROMTABLE[0x2c] = 0x00240002
+                Component not present
+        [L01] ROMTABLE[0x30] = 0x00310003
+                Component base address 0x80710000
+                Peripheral ID 0x04001bbd08
+                Designer is 0x23b, ARM Ltd
+                Part is 0xd08, Cortex-A72 Debug (Debug Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x15, Debug Logic, Processor
+                Dev Arch is 0x47706a15, ARM Ltd "Processor debug architectur8.0-A)" rev.0
+        [L01] ROMTABLE[0x34] = 0x00320003
+                Component base address 0x80720000
+                Peripheral ID 0x04004bb906
+                Designer is 0x23b, ARM Ltd
+                Part is 0x906, CoreSight CTI (Cross Trigger)
+                Component class is 0x9, CoreSight component
+                Type is 0x14, Debug Control, Trigger Matrix
+        [L01] ROMTABLE[0x38] = 0x00330003
+                Component base address 0x80730000
+                Peripheral ID 0x04001bb9d8
+                Designer is 0x23b, ARM Ltd
+                Part is 0x9d8, Cortex-A72 PMU (Performance Monitor Unit)
+                Component class is 0x9, CoreSight component
+                Type is 0x16, Performance Monitor, Processor
+                Dev Arch is 0x47702a16, ARM Ltd "Processor Performance MonitPMU) architecture" rev.0
+        [L01] ROMTABLE[0x3c] = 0x00340002
+                Component not present
+        [L01] ROMTABLE[0x40] = 0x00000000
+        [L01]   End of ROM table
+        ROMTABLE[0x4] = 0x00000000
+                End of ROM table
