@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := all
-
 AOPS = --warn --fatal-warnings
-COPS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding -D$(PIVERSION) -g 
+COPS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding -D$(PIVERSION) -DCLOCK_SPEED=$(CLOCK_SPEED) -DBAUDRATE=$(BAUDRATE)
+DEBUG_COPS = $(COPS) -g
 
 START_OBJ = $(BUILD_DIR)/start.o
 MAIN_OBJ = $(BUILD_DIR)/main.o
@@ -10,12 +10,18 @@ IMG      = $(BUILD_DIR)/$(OUTPUT)
 LIST     = $(BUILD_DIR)/main.list
 SREC     = $(BUILD_DIR)/main.srec
 START_SRC = $(SRC_DIR)/start.s
-MAIN_SRC = $(SRC_DIR)/main.c
+SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC_FILES))
 
 all: $(BUILD_DIR) $(COPY_DIR) $(IMG) copy_img
 
-clean :
+clean:
 	powershell -Command "if (Test-Path '$(BUILD_DIR)') { Remove-Item -Recurse -Force '$(BUILD_DIR)' }"
+
+debug: all $(LIST)
+
+$(LIST): $(ELF)
+	$(ARMGNU)objdump -D $< > $@
 
 $(BUILD_DIR):
 	powershell -Command "if (-not (Test-Path '$(BUILD_DIR)')) { New-Item -ItemType Directory -Path '$(BUILD_DIR)' | Out-Null }"
@@ -23,12 +29,17 @@ $(BUILD_DIR):
 $(START_OBJ): $(START_SRC) | $(BUILD_DIR)
 	$(ARMGNU)as $(AOPS) $< -o $@
 
-$(MAIN_OBJ): $(MAIN_SRC) | $(BUILD_DIR)
-	$(ARMGNU)gcc $(COPS) -c $< -o $@
+ifeq ($(MAKECMDGOALS),debug)
+CFLAGS := $(DEBUG_COPS)
+else
+CFLAGS := $(COPS)
+endif
 
-$(ELF): $(START_OBJ) $(MAIN_OBJ) $(LINKER_SCRIPT) 
-	$(ARMGNU)ld $(START_OBJ) $(MAIN_OBJ) -T $(LINKER_SCRIPT) -o $@
-	$(ARMGNU)objdump -D $@ > $(LIST)
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(ARMGNU)gcc $(CFLAGS) -c $< -o $@
+
+$(ELF): $(START_OBJ) $(OBJ_FILES) $(LINKER_SCRIPT) 
+	$(ARMGNU)ld $(START_OBJ) $(OBJ_FILES) -T $(LINKER_SCRIPT) -o $@
 
 $(IMG): $(ELF)
 	$(ARMGNU)objcopy --srec-forceS3 $< -O srec $(SREC)
