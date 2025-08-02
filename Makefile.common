@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := all
 AOPS = --warn --fatal-warnings
 COPS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding -D$(PIVERSION)
-DEBUG_COPS = $(COPS) -g3
+DEBUG_COPS = $(COPS) -g -Og
 
 START_OBJ = $(BUILD_DIR)/start.o
 MAIN_OBJ = $(BUILD_DIR)/main.o

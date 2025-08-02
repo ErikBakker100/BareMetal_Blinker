@@ -22,4 +22,3 @@ SECTIONS {
     }
     __stack_top__ = .;
 }
-

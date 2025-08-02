@@ -1,9 +1,3 @@
-
-//-------------------------------------------------------------------------
-//-------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------
-
 // Select the right version in the Makefile
 #if defined (raspberry_zero_2w)
     #warning "using settings for raspberry_zero_2w"
@@ -16,26 +10,20 @@
 #elif defined (raspberry_pi_4b)
     #warning "using settings for raspberry_pi_4b"
     #define PERIPHERAL_BASE   0xFE000000
-    #define GPIO_LED_PIN 21 // GPIO 21, the ACT_LED cannot be used as a GPIO on a pi 4b
+    #define GPIO_LED_PIN 21 // GPIO 21, the ACT_LED cannot be used as a GPIO on a pi 4b, here GPIO 21 is used, one must attach a LED with a 330ohm resistor to ground.
 #endif
 
-#define GPIO_BASE        (PERIPHERAL_BASE + 0x200000)
-// Elke GPIO-pin wordt geconfigureerd met 3 bits in een van de GPFSELn-registers:
-// Elke GPFSEL(n) regelt 10 GPIO-pinnen. Dus: GPFSEL0: GPIO 0–9, GPFSEL1: GPIO 10–19, ..., GPFSEL4: GPIO 40–49
+#define GPIO_BASE       (PERIPHERAL_BASE + 0x200000)
 
 #define GPFSEL_BASE     ((volatile unsigned int*)(GPIO_BASE + 0x00))
 #define GPSET0          ((volatile unsigned int*)(GPIO_BASE + 0x1C))
 #define GPCLR0          ((volatile unsigned int*)(GPIO_BASE + 0x28))
 
-
-// Function to delay for a given number of cycles
 void delay(unsigned int count) {
     for (volatile unsigned int i = 0; i < count; i++) {
         asm volatile("nop");
     }
 }
-
-//-------------------------------------------------------------------------
 
 void main(void) {
 
@@ -60,4 +48,4 @@ void main(void) {
         delay(500000);
     }
 }
-// This code is intended to run on a Raspberry Pi 4b.
+// This code is intended to run on a Raspberry Pi Zero1.1.

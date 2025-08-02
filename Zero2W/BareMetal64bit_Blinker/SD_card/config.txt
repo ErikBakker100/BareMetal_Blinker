@@ -1,7 +1,7 @@
 # must be placed on SD Card in the root directory
 # Run in 32-bit mode
-arm_64bit=0
+arm_64bit=1
 # Enable jtag pins (i.e. GPIO22-GPIO27)
 gpio=22-27=a4
 dtoverlay=disable-bt
-
+kernel=kernel8.img

@@ -4,4 +4,5 @@ arm_64bit=0
 # Enable jtag pins (i.e. GPIO22-GPIO27)
 gpio=22-27=a4
 dtoverlay=disable-bt
+kernel=kernel.img
 

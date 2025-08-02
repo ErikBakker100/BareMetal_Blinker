@@ -5,7 +5,7 @@
 .section .text._start, "ax"
 .globl _start
 _start:
-    mov sp,#0x8000
+    ldr sp, =__stack_top__
     bl main
 hang: b hang
 
