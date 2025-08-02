@@ -1,0 +1,84 @@
+Instellingen om openocd te compileren:
+MSYS2 installeren
+mingw32.exe gebruiken
+$ pacman -S mingw-w64-i686-gcc
+
+$ pacman -S --noconfirm --needed autoconf automake git make \
+mingw-w64-i686-toolchain \
+mingw-w64-i686-libtool \
+mingw-w64-i686-pkg-config \
+mingw-w64-i686-autotools \
+mingw-w64-i686-texinfo \
+mingw-w64-i686-openssl \
+mingw-w64-i686-cmake \
+mingw-w64-i686-zlib \
+mingw-w64-clang-x86_64-libftdi \
+mingw-w64-clang-x86_64-capstone
+
+$ git clone https://github.com/libusb/libusb.git
+$ cd libusb
+dir:  MINGW32 ~/openocd/libusb
+./bootstrap.sh
+./configure --host=i686-w64-mingw32
+make -j$(nproc)
+make install
+cd ..
+
+dir:  MINGW32 ~/openocd
+
+$ git clone git://git.code.sf.net/p/openocd/code openocd
+$ cd openocd
+
+dir:  MINGW32 ~/openocd
+
+$ git clone https://gitlab.zapb.de/libjaylink/libjaylink.git
+$ cd libjaylink
+$ ./autogen.sh
+$ ./configure --prefix=/mingw32
+$ make
+$ make install
+$ cd ..
+
+dir:  MINGW32 ~/openocd
+
+$ git clone https://github.com/msteveb/jimtcl.git
+$ cd jimtcl/
+
+dir: MINGW32 ~/openocd/jimtcl
+
+$ ./configure
+$ make
+$ make install
+$ cd ..
+
+dir:  MINGW32 ~/openocd
+
+$ echo $PKG_CONFIG
+# if empty search for dir where pkg-config is installed
+$ export PKG_CONFIG="C:/msys64/mingw32/bin/pkg-config"
+or:
+$ export PKG_CONFIG="F:/msys64/pkg-config-lite-0.28-1/bin/pkg-config"
+
+$ ./bootstrap
+$ CFLAGS="-I/mingw32/include" \
+LDFLAGS="-L/mingw32/lib -lssl -lcrypto -lz" \
+LIBS="-lssl -lcrypto -lz" \
+JIMTCL_CFLAGS="-I$PWD/jimtcl" \
+JIMTCL_LIBS="$PWD/jimtcl/libjim.a" \
+./configure \
+--prefix=/c/openocd \
+--enable-sysfsgpio \
+--enable-dummy \
+--enable-remote-bitbang \
+--enable-ftdi \
+--enable-ft232r \
+--enable-st-link \
+--enable-usbprog \
+--enable-jlink \
+--enable-capstone \
+--enable-bcm2835gpio \
+--host=i686-w64-mingw32 \
+--enable-jtag_commands
+$ make clean
+$ make -j$(nproc)
+$ make install

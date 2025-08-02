@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "debug",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "make clean; make debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/4B/BareMetal64bit_Blinker"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    }
+  ]
+}
