@@ -1,7 +1,13 @@
 .DEFAULT_GOAL := all
 AOPS = --warn --fatal-warnings
-COPS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding -D$(PIVERSION)
-DEBUG_COPS = $(COPS) -g -Og
+COPS = -Wall -O2 -nostdlib -nostartfiles -ffreestanding
+DEBUG_COPS = $(COPS) -g3 -Og
+
+ifeq ($(MAKECMDGOALS),debug)
+CFLAGS := $(DEBUG_COPS)
+else
+CFLAGS := $(COPS)
+endif
 
 START_OBJ = $(BUILD_DIR)/start.o
 MAIN_OBJ = $(BUILD_DIR)/main.o
@@ -28,12 +34,6 @@ $(BUILD_DIR):
 
 $(START_OBJ): $(START_SRC) | $(BUILD_DIR)
 	$(ARMGNU)as $(AOPS) $< -o $@
-
-ifeq ($(MAKECMDGOALS),debug)
-CFLAGS := $(DEBUG_COPS)
-else
-CFLAGS := $(COPS)
-endif
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
 	$(ARMGNU)gcc $(CFLAGS) -c $< -o $@

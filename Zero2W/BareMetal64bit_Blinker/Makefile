@@ -2,7 +2,7 @@
 # Erik Bakker, 7-2025
 # select pi version: raspberry_zero_1w, raspberry_zero_2w, raspberry_pi_4b
 PIVERSION = raspberry_zero_2w
-ARMGNU ?= "aarch64-none-elf-"
+ARMGNU ?= aarch64-none-elf-
 OUTPUT = kernel8.img
 LINKER_SCRIPT = linker.ld
 BUILD_DIR = build
