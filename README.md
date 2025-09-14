@@ -91,7 +91,7 @@ bootcode.bin, config.txt, fixup.dat, kernel.img, start.elf.
 ## Blinker Program using CMAKE
 To generate the build files via Cmake follow the following commands.
 Run the following command from the root directory to configure the specific system:
-cmake -B '<NAME>' -G "Unix Makefiles" -DARCH=<VERSION> -DRPI_MODEL=<MODEL>
+> cmake -B <NAME> -G "Unix Makefiles" -DARCH=<VERSION> -DRPI_MODEL=<MODEL>
 Whereby:
 <NAME> can be anything you want. F.e. “build_Z1_32bit”. This wil be used as the output directory where all of your build files will be located. The actual output (kernel.img or kernel8.img) can be found in the <NAME>/bin.
 <VERSION> must be 'arm32' or 'arm64' depending if you want to use 32bit or 64bit version of the program.
