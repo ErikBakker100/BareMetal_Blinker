@@ -1,0 +1,138 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "env": {
+        "LC_ALL": "C.UTF-8"
+    },
+    "configurations": [
+        {
+            "name": "Debug Rpi-4B 32bit",
+            "cwd": "${workspaceFolder}/4B/BareMetal32bit_Blinker",
+            "executable": "build/main.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device": "cortex-a72",
+            "configFiles": ["openocd.cfg"],
+            "serverArgs": [
+//                "-d3",
+            ],
+            "preLaunchTask": "debug_4B_32bit",
+            "runToEntryPoint": "main",
+            "postLaunchCommands": [
+                "monitor halt"
+            ],
+            "overrideLaunchCommands": [
+                "target extended-remote localhost:50000"
+            ],
+            "showDevDebugOutput": "console",
+            "showDevDebugTimestamps": false,
+            "liveWatch": true,
+            "svdPath": "${workspaceFolder}/4B/bcm2711_lpa.svd"  // optioneel voor peripherals
+        },
+        {
+            "name": "Debug Rpi-4B 64bit",
+            "cwd": "${workspaceFolder}/4B/BareMetal64bit_Blinker",
+            "executable": "build/main.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "armToolchainPath": "C:/Program Files (x86)/Arm GNU Toolchain aarch64-none-elf/14.3 rel1/bin",
+            "servertype": "openocd",
+            "device": "cortex-a72",
+            "configFiles": ["openocd.cfg"],
+            "serverArgs": [
+//                "-d3",
+            ],
+            "preLaunchTask": "debug_4B_64bit",
+            "runToEntryPoint": "main",
+            "postLaunchCommands": [
+                "monitor halt"
+            ],
+            "overrideLaunchCommands": [
+                "target extended-remote localhost:50000"
+            ],
+            "showDevDebugOutput": "console",
+            "showDevDebugTimestamps": false,
+            "toolchainPrefix": "aarch64-none-elf",
+            "liveWatch": true,
+            "svdPath": "${workspaceFolder}/4B/bcm2711_lpa.svd"  // optioneel voor peripherals
+        },
+        {
+            "name": "Debug Rpi-Z2 32bit",
+            "cwd": "${workspaceFolder}/Zero2W/BareMetal32bit_Blinker",
+            "executable": "build/main.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device": "cortex-a53",
+            "configFiles": ["openocd.cfg"],
+            "serverArgs": [
+//                "-d3",
+            ],
+            "preLaunchTask": "debug_Zero2_32bit",
+            "runToEntryPoint": "main",
+            "postLaunchCommands": [
+                "monitor halt"
+            ],
+            "overrideLaunchCommands": [
+                "target extended-remote localhost:50000"
+            ],
+            "showDevDebugOutput": "console",
+            "showDevDebugTimestamps": false,
+            "liveWatch": true,
+            "svdPath": "${workspaceFolder}/Zero2W/bcm2837_lpa.svd"
+        },
+        {
+            "name": "Debug Rpi-Z2 64bit",
+            "cwd": "${workspaceFolder}/Zero2W/BareMetal64bit_Blinker",
+            "executable": "build/main.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "armToolchainPath": "C:/Program Files (x86)/Arm GNU Toolchain aarch64-none-elf/14.3 rel1/bin",
+            "servertype": "openocd",
+            "device": "cortex-a53",
+            "configFiles": ["openocd.cfg"],
+            "serverArgs": [
+//                "-d3",
+            ],
+            "preLaunchTask": "debug_Zero2_64bit",
+            "runToEntryPoint": "main",
+            "postLaunchCommands": [
+                "monitor halt"
+            ],
+            "overrideLaunchCommands": [
+                "target extended-remote localhost:50000"
+            ],
+            "showDevDebugOutput": "console",
+            "showDevDebugTimestamps": false,
+            "toolchainPrefix": "aarch64-none-elf",
+            "liveWatch": true,
+            "svdPath": "${workspaceFolder}/Zero2W/bcm2837_lpa.svd"
+        },
+        {
+            "name": "Debug Rpi-Z1.1 32bit",
+            "cwd": "${workspaceFolder}/ZeroW1.1/BareMetal32bit_Blinker",
+            "executable": "build/main.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "device": "arm1176",
+            "configFiles": ["openocd.cfg"],
+            "serverArgs": [
+//                "-d3",
+            ],
+//            "preLaunchTask": "debug_Zero_32bit",
+            "postLaunchCommands": [
+                "monitor halt"
+                "set $pc = main",
+                "break main"
+            ],
+            "showDevDebugOutput": "console",
+            "showDevDebugTimestamps": false,
+            "liveWatch": true,
+            "svdPath": "${workspaceFolder}/ZeroW1.1/bcm2835_lpa.svd"
+        },
+    ]
+}
