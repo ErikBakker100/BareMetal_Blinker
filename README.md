@@ -91,23 +91,23 @@ bootcode.bin, config.txt, fixup.dat, kernel.img, start.elf.
 ## Blinker Program using CMAKE
 To generate the build files via Cmake follow the following commands.
 Run the following command from the root directory to configure the specific system:
-cmake -B <NAME> -G "Unix Makefiles" -DARCH=<VERSION> -DRPI_MODEL=<MODEL>
+'cmake -B <NAME> -G "Unix Makefiles" -DARCH=<VERSION> -DRPI_MODEL=<MODEL>'
 Whereby:
-<NAME> can be anything you want. F.e. “build_Z1_32bit”. This wil be used as the output directory where all of your build files will be located. The actual output (kernel.img or kernel8.img) can be found in the <NAME>/bin.
-<VERSION> must be 'arm32' or 'arm64' depending if you want to use 32bit or 64bit version of the program.
-<MODEL> must be 'Z1', 'Z2' or '4B' depending on the version raspberry pi you are using.
+\<NAME\> can be anything you want. F.e. “build_Z1_32bit”. This wil be used as the output directory where all of your build files will be located. The actual output (kernel.img or kernel8.img) can be found in the \<NAME\>/bin.
+\<VERSION\> must be 'arm32' or 'arm64' depending if you want to use 32bit or 64bit version of the program.
+\<MODEL\> must be 'Z1', 'Z2' or '4B' depending on the version raspberry pi you are using.
 
 For example if you want to build for a raspberry pi Zero1, first use:
-cmake -B build_Z1_arm32 -G "Unix Makefiles" -DARCH=arm32 -DRPI_MODEL=Z1
+'cmake -B build_Z1_arm32 -G "Unix Makefiles" -DARCH=arm32 -DRPI_MODEL=Z1'
 This will configure the build system, and generates the MAKE files in the <NAME> directory.
 Now we can compile, do:
-cmake --build <NAME>.
-As an alternative you could also enter the <NAME> directory via 'cd <NAME>' and run 'make'.
+cmake --build \<NAME\>.
+As an alternative you could also enter the \<NAME\> directory via 'cd \<NAME\>' and run 'make'.
 
 If you want to see what is going on under the hood add '-- VERBOSE=1' to the command.
 
-When the source file(s) have changed you need to run cmake --build <NAME> again.
-If a configuration has changed (f.e. New version compiler has been installed), you need to rerun the 'cmake -B ….' command. But then first do 'rm -r <NAME>/*'
+When the source file(s) have changed you need to run cmake --build \<NAME\> again.
+If a configuration has changed (f.e. New version compiler has been installed), you need to rerun the 'cmake -B ….' command. But then first do 'rm -r \<NAME\>/*'
 Updating Arm toolchain
 The information for Cmake to be able to use the right Arm toolchain two seperate files can be found in the CmakeFiles directory:
 toolchain-aarch64.cmake
