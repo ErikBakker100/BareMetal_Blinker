@@ -1,1 +1,25 @@
-CMakeFiles
+# Alles negeren
+*
+
+# Bewaar project files
+!4B/
+!4B/**
+!Zero2W/
+!Zero2W/**
+!ZeroW1.1/
+!ZeroW1.1/**
+
+# Bewaar configuratie files
+!CMakeLists.txt
+!README.md
+!ReadME.odt
+!Makefile.common
+!.vscode
+!.vscode/**
+!.gitignore
+
+# Bewaar broncode
+!src/
+!src/**
+!openocd/
+!openocd/**

@@ -1,8 +1,0 @@
-arm_64bit=1
-kernel=kernel8.img
-gpio=22-27=a4
-dtoverlay=disable-bt
-[pi4]
-arm_boost=1
-enable_jtag_gpio=1
-

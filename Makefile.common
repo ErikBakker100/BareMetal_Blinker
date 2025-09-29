@@ -9,6 +9,8 @@ else
 CFLAGS := $(COPS)
 endif
 
+CFLAGS += -D$(PIVERSION)
+
 START_OBJ = $(BUILD_DIR)/start.o
 MAIN_OBJ = $(BUILD_DIR)/main.o
 ELF      = $(BUILD_DIR)/main.elf
