@@ -17,7 +17,11 @@ ELF      = $(BUILD_DIR)/main.elf
 IMG      = $(BUILD_DIR)/$(OUTPUT)
 LIST     = $(BUILD_DIR)/main.list
 SREC     = $(BUILD_DIR)/main.srec
-START_SRC = $(SRC_DIR)/start.s
+ifeq ($(ARCH),arm32)
+START_SRC :=$(SRC_DIR)/start32.s
+else
+START_SRC :=$(SRC_DIR)/start64.s
+endif
 SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC_FILES))
 

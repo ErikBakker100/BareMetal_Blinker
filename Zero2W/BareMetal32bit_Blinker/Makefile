@@ -6,8 +6,9 @@ ARMGNU ?= arm-none-eabi-
 OUTPUT = kernel.img
 LINKER_SCRIPT = linker.ld
 BUILD_DIR = build
-SRC_DIR = src
+SRC_DIR = ../../src
 COPY_DIR = SD_card
+ARCH = arm32
 COMMON_MAKEFILE := ../../Makefile.common
 
 include $(COMMON_MAKEFILE)

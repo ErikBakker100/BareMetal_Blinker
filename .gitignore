@@ -17,6 +17,8 @@
 !.vscode
 !.vscode/**
 !.gitignore
+!.CMakeFiles
+!.CMakeFiles/**
 
 # Bewaar broncode
 !src/
