@@ -67,13 +67,6 @@ set(LINKER_SCRIPT ${CMAKE_BINARY_DIR}/bin/linker.ld)
 # ----------------------
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Zorg dat de output <kernel>.elf heet in de bin map
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-    OUTPUT_NAME "kernel"
-    SUFFIX ".elf"
-)
-
 # ----------------------
 # Compiler instellingen
 # ----------------------
@@ -88,6 +81,27 @@ else()
     message(FATAL_ERROR "Onbekend RPI_MODEL: ${RPI_MODEL}")
 endif()
 
+# Genereer .list bestand voor main.c
+separate_arguments(C_FLAGS_LIST NATIVE_COMMAND ${CMAKE_C_FLAGS})
+
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/bin/main.list
+    COMMAND ${CMAKE_C_COMPILER}
+            ${C_FLAGS_LIST}
+            -D${RPI_DEFINE}
+            -Wa,-adhln
+            -g3 -Og
+            -c ${CMAKE_SOURCE_DIR}/src/main.c
+            -o ${CMAKE_BINARY_DIR}/main.o
+            > ${CMAKE_BINARY_DIR}/bin/main.list
+    DEPENDS ${CMAKE_SOURCE_DIR}/src/main.c
+    COMMENT "Genereren van main.list (assembly listing)"
+)
+
+add_custom_target(main_list ALL
+    DEPENDS ${CMAKE_BINARY_DIR}/bin/main.list
+)
+
 # Voeg de definitie alleen toe voor C (niet voor ASM)
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     $<$<COMPILE_LANGUAGE:C>:${RPI_DEFINE}>
@@ -99,7 +113,7 @@ target_link_options(${PROJECT_NAME} PRIVATE "-T${LINKER_SCRIPT}")
 # Post-build acties
 # ----------------------
 
-# 64bit versions rewuire kernel8.img, whereby 32bit versions uses kernel.img
+# 64bit versions require kernel8.img, whereby 32bit versions uses kernel.img
 if(ARCH STREQUAL "arm64") 
     set(IMAGEFILE kernel8.img)
     set(ARM_64BIT 1)
@@ -127,7 +141,7 @@ elseif(RPI_MODEL STREQUAL "4B")
     set(BOOTFILES_DIR ${CMAKE_SOURCE_DIR}/CMakeFiles/boot/4B)
 endif()
 
-# Model-specifieke opties
+# Model-specific options
 if(RPI_MODEL STREQUAL "Z1")
     set(MODEL_CONFIG "")
 elseif(RPI_MODEL STREQUAL "Z2")
@@ -166,7 +180,7 @@ configure_file(
 # Copy model-specific boot files
 add_custom_target(copy_boot_files ALL
     # verwijder bestaande sdcard dir (indien aanwezig)
-    COMMAND ${CMAKE_COMMAND} -E rm -rf ${SDCARD_DIR}
+    COMMAND ${CMAKE_COMMAND} -E rm -rf ${SDCARD_DIR} 
     # maak hem opnieuw aan
     COMMAND ${CMAKE_COMMAND} -E make_directory ${SDCARD_DIR}
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${BOOTFILES_DIR} ${SDCARD_DIR}
