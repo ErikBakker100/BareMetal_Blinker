@@ -1,8 +1,7 @@
 .DEFAULT_GOAL := all
 AOPS = --warn --fatal-warnings
 COPS = -Wall -nostdlib -nostartfiles -ffreestanding
-DEBUG_COPS = $(COPS) -g3 -Og
-
+DEBUG_COPS = $(COPS) -g3 -Og -Wa,-adhln
 ifeq ($(MAKECMDGOALS),debug)
 CFLAGS := $(DEBUG_COPS)
 else

@@ -115,5 +115,7 @@ toolchain-arm-eabi.cmake
 In these files you will find the following: 
 The line 'set(TOOLCHAIN_PREFIX "C:/Program Files (x86)/Arm GNU Toolchain aarch64-none-elf/14.3 rel1/bin")' needs to changed to be able to use the new version toolchain installed.
 
+If you want debugging information add `-DCMAKE_BUILD_TYPE=Debug` to the `cmake -B …` command.
+
 ## notes
 The ACT_LED present on may pi's, is not present on a rpi4b and therefore can not be controlled via the program on a rpi4b, in this case GPIO 21 is being used. A LED should be connected (via a 330ohm resistor to ground) to GPIO21 to see the blinking.

@@ -4,6 +4,7 @@ SECTIONS {
     . = @LINKER_LOAD_ADDR@;
 
     .text : {
+        *(.text._start)   /* Zorg dat _start altijd als eerste komt */        
         *(.text*)
     }
 

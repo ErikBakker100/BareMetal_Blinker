@@ -81,33 +81,23 @@ else()
     message(FATAL_ERROR "Onbekend RPI_MODEL: ${RPI_MODEL}")
 endif()
 
-# Genereer .list bestand voor main.c
-separate_arguments(C_FLAGS_LIST NATIVE_COMMAND ${CMAKE_C_FLAGS})
-
-add_custom_command(
-    OUTPUT ${CMAKE_BINARY_DIR}/bin/main.list
-    COMMAND ${CMAKE_C_COMPILER}
-            ${C_FLAGS_LIST}
-            -D${RPI_DEFINE}
-            -Wa,-adhln
-            -g3 -Og
-            -c ${CMAKE_SOURCE_DIR}/src/main.c
-            -o ${CMAKE_BINARY_DIR}/main.o
-            > ${CMAKE_BINARY_DIR}/bin/main.list
-    DEPENDS ${CMAKE_SOURCE_DIR}/src/main.c
-    COMMENT "Genereren van main.list (assembly listing)"
-)
-
-add_custom_target(main_list ALL
-    DEPENDS ${CMAKE_BINARY_DIR}/bin/main.list
-)
-
-# Voeg de definitie alleen toe voor C (niet voor ASM)
+# Definities doorgeven aan de compiler (alleen voor C, niet voor ASM)
 target_compile_definitions(${PROJECT_NAME} PRIVATE
     $<$<COMPILE_LANGUAGE:C>:${RPI_DEFINE}>
 )
 
-target_link_options(${PROJECT_NAME} PRIVATE "-T${LINKER_SCRIPT}")
+target_compile_options(${PROJECT_NAME} PRIVATE
+    -Wall
+    -ffreestanding
+    -fno-builtin
+)
+
+target_link_options(${PROJECT_NAME} PRIVATE
+    "-nostartfiles"
+    "-nostdlib"
+    "-T${LINKER_SCRIPT}"
+    "-Wl,-Map=${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map"
+)
 
 # ----------------------
 # Post-build acties
@@ -132,21 +122,15 @@ configure_file(
     @ONLY
 )
 
-# Decide which image files the Pi expects
+# Decide which image files the Pi expects, and set Model-specific options
 if(RPI_MODEL STREQUAL "Z1")
     set(BOOTFILES_DIR ${CMAKE_SOURCE_DIR}/CMakeFiles/boot/Z1)
+    set(MODEL_CONFIG "")
 elseif(RPI_MODEL STREQUAL "Z2")
     set(BOOTFILES_DIR ${CMAKE_SOURCE_DIR}/CMakeFiles/boot/Z2)
+    set(MODEL_CONFIG "")
 elseif(RPI_MODEL STREQUAL "4B")
     set(BOOTFILES_DIR ${CMAKE_SOURCE_DIR}/CMakeFiles/boot/4B)
-endif()
-
-# Model-specific options
-if(RPI_MODEL STREQUAL "Z1")
-    set(MODEL_CONFIG "")
-elseif(RPI_MODEL STREQUAL "Z2")
-    set(MODEL_CONFIG "")
-elseif(RPI_MODEL STREQUAL "4B")
     set(MODEL_CONFIG "[pi4]\narm_boost=1\nenable_jtag_gpio=1\n")
 endif()
 
@@ -161,13 +145,11 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E echo "Omzetten ELF naar kernel(8).img en SREC"
 )
 
-# ----------------------
-# Dit zorgt ervoor dat de kernel.img altijd wordt bijgewerkt bij een build
-# en voorkomt dat het alleen wordt gemaakt bij een expliciete build van de kernel.
-# ----------------------
+# Zorg dat de kernel altijd gebouwd wordt als je 'make' doet
 add_custom_target(kernel ALL
-    DEPENDS ${CMAKE_BINARY_DIR}/bin/${IMAGEFILE}
+    DEPENDS ${PROJECT_NAME}
 )
+
 # ----------------------
 # Configuratiebestand voor de SD-kaart
 # ----------------------
