@@ -1,4 +1,4 @@
-.section .text
+.section .text._start, "ax"
 .global _start
 _start:
     ldr x0, =__stack_top__
